@@ -1,0 +1,16 @@
+services:
+
+  bee2990-db:
+    image: postgres:latest
+    container_name: bee2990-db
+    environment:
+      POSTGRES_DB: bee2990
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234567
+    ports:
+      - "5435:5432"
+    volumes:
+      - bee2990_db_data:/var/lib/postgresql/data
+
+volumes:
+  bee2990_db_data:
