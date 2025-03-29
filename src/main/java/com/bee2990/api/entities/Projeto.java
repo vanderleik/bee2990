@@ -1,8 +1,9 @@
 package com.bee2990.api.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "projetos")
 @Entity
@@ -12,12 +13,14 @@ public class Projeto {
     private Long pnumero;
     private String pnome;
 
-    public Projeto() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "dnumero")
+    private Departamento departamento;
 
-    public Projeto(Long pnumero, String pnome) {
-        this.pnumero = pnumero;
-        this.pnome = pnome;
+    @ManyToMany(mappedBy = "projetosOndeTrabalha")
+    private Set<Empregado> empregados = new HashSet<>();
+
+    public Projeto() {
     }
 
     public Long getPnumero() {
@@ -34,5 +37,13 @@ public class Projeto {
 
     public void setPnome(String pnome) {
         this.pnome = pnome;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 }

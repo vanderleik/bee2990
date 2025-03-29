@@ -1,8 +1,9 @@
 package com.bee2990.api.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "departamentos")
 @Entity
@@ -12,12 +13,14 @@ public class Departamento {
     private Long dnumero;
     private String dnome;
 
-    public Departamento() {
-    }
+    @OneToMany(mappedBy = "departamento")
+    private List<Empregado> empregados = new ArrayList<>();
 
-    public Departamento(Long dnumero, String dnome) {
-        this.dnumero = dnumero;
-        this.dnome = dnome;
+    @ManyToOne
+    @JoinColumn(name = "cpf_gerente")
+    private Empregado gerente;
+
+    public Departamento() {
     }
 
     public Long getDnumero() {
@@ -34,5 +37,21 @@ public class Departamento {
 
     public void setDnome(String dnome) {
         this.dnome = dnome;
+    }
+
+    public List<Empregado> getEmpregados() {
+        return empregados;
+    }
+
+    public void setEmpregados(List<Empregado> empregados) {
+        this.empregados = empregados;
+    }
+
+    public Empregado getGerente() {
+        return gerente;
+    }
+
+    public void setGerente(Empregado gerente) {
+        this.gerente = gerente;
     }
 }
